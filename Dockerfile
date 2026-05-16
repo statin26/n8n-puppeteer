@@ -1,6 +1,9 @@
-# Stage 1: Install Chromium and dependencies in a Debian image
-FROM debian:bookworm-slim AS chromium-deps
+# Start directly from the Debian-based n8n image
+FROM n8nio/n8n:latest-debian
 
+USER root
+
+# Install Chromium and its dependencies directly inside the n8n image
 RUN apt-get update && apt-get install -y --no-install-recommends \
     chromium \
     ca-certificates \
@@ -20,24 +23,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     xdg-utils \
     && rm -rf /var/lib/apt/lists/*
 
-# Stage 2: Build the n8n image (using latest-debian to support your binaries natively)
-FROM n8nio/n8n:latest-debian
-
-USER root
-
-# Copy Chromium binary and all required shared libraries
-COPY --from=chromium-deps /usr/bin/chromium /usr/bin/chromium
-COPY --from=chromium-deps /usr/lib/chromium/ /usr/lib/chromium/
-COPY --from=chromium-deps /usr/share/fonts/ /usr/share/fonts/
-COPY --from=chromium-deps /usr/share/ca-certificates/ /usr/share/ca-certificates/
-COPY --from=chromium-deps /etc/ssl/certs/ /etc/ssl/certs/
-COPY --from=chromium-deps /lib/x86_64-linux-gnu/ /lib/x86_64-linux-gnu/
-COPY --from=chromium-deps /usr/lib/x86_64-linux-gnu/ /usr/lib/x86_64-linux-gnu/
-
-# Install community nodes & puppeteer
+# Install your community nodes & puppeteer packages cleanly
 RUN npm install -g puppeteer n8n-nodes-puppeteer
 
-# Environment variables for Chromium execution
+# Chromium environment configurations
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
