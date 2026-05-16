@@ -1,7 +1,8 @@
-FROM node:22-bookworm
+FROM n8nio/n8n:latest
 
-# Install Chromium + build tools
-RUN apt-get update && apt-get install -y --no-install-recommends \
+USER root
+
+RUN apt-get update && apt-get install -y \
     chromium \
     ca-certificates \
     fonts-liberation \
@@ -14,38 +15,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgtk-3-0 \
     libnspr4 \
     libnss3 \
+    libx11-xcb1 \
     libxcomposite1 \
     libxdamage1 \
     libxrandr2 \
     xdg-utils \
-    python3 \
-    make \
-    g++ \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
-# Install n8n + puppeteer
-RUN npm install -g n8n puppeteer n8n-nodes-puppeteer
+RUN npm install -g puppeteer
 
-# Puppeteer config
+RUN npm install -g n8n-nodes-puppeteer --unsafe-perm=true --legacy-peer-deps
+
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
-ENV CHROME_BIN=/usr/bin/chromium
 
-# Create non-root user
 RUN useradd -m -s /bin/bash n8nuser
-
-# Create n8n directory with permissions
-RUN mkdir -p /home/n8nuser/.n8n && \
-    chown -R n8nuser:n8nuser /home/n8nuser
-
-# Switch to non-root user
 USER n8nuser
-
-# Home directory
-ENV HOME=/home/n8nuser
-
-# Railway / n8n
-ENV N8N_PORT=5678
-EXPOSE 5678
-
-CMD ["n8n"]
