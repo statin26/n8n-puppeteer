@@ -1,9 +1,8 @@
-# Start directly from the Debian-based n8n image
-FROM n8nio/n8n:latest-debian
+FROM n8nio/n8n:latest
 
 USER root
 
-# Install Chromium and its dependencies directly inside the n8n image
+# Install Chromium + dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     chromium \
     ca-certificates \
@@ -23,10 +22,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     xdg-utils \
     && rm -rf /var/lib/apt/lists/*
 
-# Install your community nodes & puppeteer packages cleanly
+# Install puppeteer packages
 RUN npm install -g puppeteer n8n-nodes-puppeteer
 
-# Chromium environment configurations
+# Puppeteer config
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
