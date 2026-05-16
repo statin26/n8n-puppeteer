@@ -1,6 +1,6 @@
-FROM node:20-bookworm
+FROM node:22-bookworm
 
-# Install Chromium + dependencies
+# Install Chromium and dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     chromium \
     ca-certificates \
@@ -18,16 +18,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxdamage1 \
     libxrandr2 \
     xdg-utils \
+    python3 \
+    make \
+    g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Install n8n + puppeteer
+# Install n8n + puppeteer packages
 RUN npm install -g n8n puppeteer n8n-nodes-puppeteer
 
 # Puppeteer config
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
-# Railway port
+# Railway
 ENV N8N_PORT=5678
 EXPOSE 5678
 
