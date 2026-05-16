@@ -1,13 +1,16 @@
-FROM ghcr.io/puppeteer/puppeteer:latest
+FROM n8nio/n8n:latest
 
 USER root
 
-RUN npm install -g n8n
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ttf-freefont \
+    ghostscript \
+    && rm -rf /var/cache/apk/*
 
-RUN npm install -g n8n-nodes-puppeteer --unsafe-perm=true --legacy-peer-deps
+USER node
 
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome
-
-EXPOSE 5678
-
-CMD ["n8n"]
+ENV PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium"
