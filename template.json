@@ -1,29 +1,66 @@
 {
   "$schema": "https://railway.com/template.schema.json",
   "name": "N8N-PUPPETEER",
-  "description": "n8n workflow automation with Puppeteer scraping and a Postgres DB.",
-  "icon": "https://user-images.githubusercontent.com/10379601/29446482-04f7036a-841f-11e7-9872-91d1fc2ea683.png",
+  "description": "Deploy n8n with Puppeteer browser automation and PostgreSQL on Railway.",
+  "icon": "https://avatars.githubusercontent.com/u/45487711?s=200&v=4",
+  "tags": [
+    "n8n",
+    "automation",
+    "puppeteer",
+    "postgres"
+  ],
   "services": [
     {
       "id": "n8n-puppeteer",
       "name": "n8n-puppeteer",
       "icon": "https://avatars.githubusercontent.com/u/45487711?s=200&v=4",
+      "healthcheckPath": "/healthz",
       "variables": {
-        "PORT": { "description": "The network port on which the n8n web server listens for incoming HTTP requests." },
-        "DB_TYPE": { "description": "The structural database core type backend configured for n8n execution data." },
-        "NODES_EXCLUDE": { "description": "Array block list configuration indicating which default core nodes to completely disable." },
-        "DB_POSTGRESDB_HOST": { "description": "The private network endpoint hostname mapped to the active PostgreSQL storage container." },
-        "DB_POSTGRESDB_PORT": { "description": "The network gateway port interface utilized to route incoming traffic to the database." },
-        "DB_POSTGRESDB_USER": { "description": "The system credential account name utilized to authenticate structural database access queries." },
-        "DB_POSTGRESDB_DATABASE": { "description": "The targeted active runtime relational database cluster schema created inside Postgres." },
-        "DB_POSTGRESDB_PASSWORD": { "description": "The master cryptographic password string utilized for authorization protocols." },
-        "N8N_RUNNERS_ENABLED": { "description": "Toggles execution tasks to isolate heavy workloads onto decoupled runner frameworks." },
-        "N8N_DIAGNOSTICS_ENABLED": { "description": "Toggles the automatic reporting payload of anonymous backend diagnostics telemetry." },
-        "PUPPETEER_EXECUTABLE_PATH": { "description": "The absolute system environment path routing directly to the local browser binary executable." },
-        "N8N_COMMUNITY_PACKAGES_ENABLED": { "description": "Controls permissions to fetch, install, and instantiate external community nodes." },
-        "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD": { "description": "Instructs node modules to skip fetching a secondary browser package during builds." },
-        "N8N_VERSION_NOTIFICATIONS_ENABLED": { "description": "Controls visual notifications alerting users about updated application framework releases." },
-        "N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS": { "description": "Bypasses default rigid file-ownership permissions evaluation parameters." }
+        "PORT": {
+          "description": "Port used by the n8n web server."
+        },
+        "DB_TYPE": {
+          "description": "Database type used by n8n."
+        },
+        "NODES_EXCLUDE": {
+          "description": "Comma-separated list of n8n nodes to disable."
+        },
+        "DB_POSTGRESDB_HOST": {
+          "description": "Hostname of the PostgreSQL database service."
+        },
+        "DB_POSTGRESDB_PORT": {
+          "description": "Port of the PostgreSQL database service."
+        },
+        "DB_POSTGRESDB_USER": {
+          "description": "PostgreSQL username used by n8n."
+        },
+        "DB_POSTGRESDB_DATABASE": {
+          "description": "PostgreSQL database name used by n8n."
+        },
+        "DB_POSTGRESDB_PASSWORD": {
+          "description": "Password for the PostgreSQL database user."
+        },
+        "N8N_RUNNERS_ENABLED": {
+          "description": "Enable task runners for scalable workflow execution."
+        },
+        "N8N_DIAGNOSTICS_ENABLED": {
+          "description": "Enable anonymous diagnostics and telemetry."
+        },
+        "PUPPETEER_EXECUTABLE_PATH": {
+          "description": "Path to the Chromium or Chrome executable."
+        },
+        "N8N_COMMUNITY_PACKAGES_ENABLED": {
+          "description": "Allow installation of community nodes."
+        },
+        "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD": {
+          "description": "Skip Chromium download during installation."
+        },
+        "N8N_VERSION_NOTIFICATIONS_ENABLED": {
+          "description": "Enable notifications for new n8n versions."
+        },
+        "N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS": {
+          "description": "Enforce secure permissions for n8n settings files."
+        }
       }
     },
     {
@@ -31,19 +68,45 @@
       "name": "Postgres",
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
       "variables": {
-        "PGDATA": { "description": "The absolute folder location where cluster storage files are saved." },
-        "PGHOST": { "description": "The binding routing target network address pointing to this specific host entity." },
-        "PGPORT": { "description": "The target TCP communication port network interface for standard service calls." },
-        "PGUSER": { "description": "The system user identity assigned administrative powers on database clusters." },
-        "PGDATABASE": { "description": "The designated core relational target workspace name within the storage container." },
-        "PGPASSWORD": { "description": "The master credential credential utilized for security clearance checks." },
-        "POSTGRES_DB": { "description": "Alternative environmental flag passing initialization naming commands." },
-        "DATABASE_URL": { "description": "The comprehensive fully formatted application system routing access URI string." },
-        "POSTGRES_USER": { "description": "Alternative environmental flag passing configuration username inputs." },
-        "SSL_CERT_DAYS": { "description": "The standard total active timeline allocated for custom system generation security certifications." },
-        "POSTGRES_PASSWORD": { "description": "Alternative environmental configuration target handling master initialization secrets." },
-        "DATABASE_PUBLIC_URL": { "description": "The external public facing egress proxy routing URI for remote system access hooks." },
-        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": { "description": "The graceful countdown timeframe buffer mapped out before cycling running instances." }
+        "PGDATA": {
+          "description": "Directory where PostgreSQL stores database files."
+        },
+        "PGHOST": {
+          "description": "Hostname used to connect to PostgreSQL."
+        },
+        "PGPORT": {
+          "description": "Port used by PostgreSQL."
+        },
+        "PGUSER": {
+          "description": "Default PostgreSQL user."
+        },
+        "PGDATABASE": {
+          "description": "Default PostgreSQL database name."
+        },
+        "PGPASSWORD": {
+          "description": "Password for the PostgreSQL user."
+        },
+        "POSTGRES_DB": {
+          "description": "Database created during PostgreSQL initialization."
+        },
+        "DATABASE_URL": {
+          "description": "Internal PostgreSQL connection string."
+        },
+        "POSTGRES_USER": {
+          "description": "PostgreSQL admin username."
+        },
+        "SSL_CERT_DAYS": {
+          "description": "Number of days generated SSL certificates remain valid."
+        },
+        "POSTGRES_PASSWORD": {
+          "description": "PostgreSQL admin password."
+        },
+        "DATABASE_PUBLIC_URL": {
+          "description": "Public PostgreSQL connection string."
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "description": "Grace period before shutting down old deployments."
+        }
       }
     }
   ]
