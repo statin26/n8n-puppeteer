@@ -2,28 +2,24 @@ FROM n8nio/n8n:latest
 
 USER root
 
-# Install Chromium and required dependencies
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
     chromium \
-    nss \
-    freetype \
-    harfbuzz \
-    ttf-freefont \
+    chromium-driver \
+    fonts-freefont-ttf \
     ghostscript \
+    libnss3 \
+    libxss1 \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libgtk-3-0 \
+    libgbm1 \
+    ca-certificates \
+    wget \
     bash \
-    && rm -rf /var/cache/apk/*
+    && rm -rf /var/lib/apt/lists/*
 
-# Install Puppeteer
-RUN npm install -g puppeteer --unsafe-perm=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
-# Install n8n Puppeteer community node
-RUN npm install -g n8n-nodes-puppeteer \
-    --unsafe-perm=true \
-    --legacy-peer-deps
+RUN npm install -g puppeteer n8n-nodes-puppeteer --unsafe-perm=true --legacy-peer-deps
 
-# Puppeteer environment
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-
-# Switch back to non-root user
 USER node
