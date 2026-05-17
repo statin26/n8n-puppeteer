@@ -1,40 +1,34 @@
-# Step 1: Use a Debian image to safely download the Linux-compatible Chromium binaries
-FROM debian:bookworm-slim AS debian-builder
+# Use a standard, complete Alpine base image where package managers work natively
+FROM alpine:3.20
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install Chromium, its native system dependencies, and NodeJS + NPM
+RUN apk add --no-cache \
     chromium \
-    libnss3 \
-    libnspr4 \
-    libatk1.0-0 \
-    libatk-bridge2.0-0 \
-    libcups2 \
-    libdrm2 \
-    libxkbcommon0 \
-    libxcomposite1 \
-    libxdamage1 \
-    libxext6 \
-    libxfixes3 \
-    libxrandr2 \
-    libgbm1 \
-    libasound2 \
-    libpango-1.0-0 \
-    libpangocairo-1.0-0 \
-    && rm -rf /var/lib/apt/lists/*
+    nss \
+    freetype \
+    harfbuzz \
+    ttf-freefont \
+    ghostscript \
+    bash \
+    nodejs \
+    npm
 
-# Step 2: Bring in the official n8n image
-FROM n8nio/n8n:latest
+# Global environment variables for Puppeteer to read the local native binary
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV N8N_COMMUNITY_PACKAGES_ENABLED=true
 
-USER root
+# Install n8n globally alongside Puppeteer tools within the identical package structure
+RUN npm install -g n8n puppeteer n8n-nodes-puppeteer --unsafe-perm=true --legacy-peer-deps
 
-# Copy Chromium wrapper, configuration folder, binaries, and system architectures
-COPY --from=debian-builder /usr/bin/chromium /usr/bin/chromium
-COPY --from=debian-builder /etc/chromium.d/ /etc/chromium.d/
-COPY --from=debian-builder /usr/lib/chromium/ /usr/lib/chromium/
-COPY --from=debian-builder /usr/lib/x86_64-linux-gnu/ /usr/lib/x86_64-linux-gnu/
-COPY --from=debian-builder /lib/x86_64-linux-gnu/ /lib/x86_64-linux-gnu/
+# Create standard non-root node user configuration for container security
+RUN mkdir -p /home/node/.n8n && chown -R node:node /home/node
 
-# Install the Puppeteer community node using n8n's embedded NPM setup
-RUN npm install -g puppeteer n8n-nodes-puppeteer --unsafe-perm=true --legacy-peer-deps
-
-# Restore security constraints back to n8n's node user
 USER node
+WORKDIR /home/node
+
+# Expose n8n's standard runtime port
+EXPOSE 5678
+
+# Start n8n directly
+CMD ["n8n", "start"]
