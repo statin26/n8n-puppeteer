@@ -1,5 +1,7 @@
 # n8n with Puppeteer & Chromium on Railway
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template?template=https://github.com/statin26/n8n-puppeteer&referralCode=Railway)
+
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template?template=https://github.com/statin26/n8n-puppeteer&referralCode=Railway)
 > 🎁 **Bonus:** Using the deployment button above applies our community referral code. If you are new to Railway, you will instantly receive **$20 in free hosting credits** (equivalent to a full free month of Railway Pro) to kickstart your automation!
 
 ---
