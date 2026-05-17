@@ -19,8 +19,11 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 ENV N8N_COMMUNITY_PACKAGES_ENABLED=true
 
-# Install n8n, puppeteer, and the community node
-RUN npm install -g n8n puppeteer n8n-nodes-puppeteer --unsafe-perm=true --legacy-peer-deps
+# Step 1: Install n8n globally by itself to let its dependency tree lock correctly
+RUN npm install -g n8n --unsafe-perm=true
+
+# Step 2: Install puppeteer and the community node alongside it smoothly
+RUN npm install -g puppeteer n8n-nodes-puppeteer --unsafe-perm=true --legacy-peer-deps
 
 # Create the 'node' system group and user manually in Alpine
 RUN addgroup -g 1000 node && \
