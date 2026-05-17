@@ -3,18 +3,7 @@
 ![n8n](https://img.shields.io/badge/n8n-FF6D5A?style=for-the-badge&logo=n8n&logoColor=white)
 ![Puppeteer](https://img.shields.io/badge/Puppeteer-00D8A2?style=for-the-badge&logo=puppeteer&logoColor=white)
 
-# 🕸️ Automated Browser Scraping Instance
-
-| Workflow Engine | Browser Automation Core | Runtime Base |
-| :---: | :---: | :---: |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/n8n/n8n-original.svg" width="60"> | <img src="https://user-images.githubusercontent.com/10379601/29446482-04f7036a-841f-11e7-9872-91d1fc2216e5.png" width="55"> | `Alpine Linux + Chromium` |
-
----
-
-
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template?template=https://github.com/statin26/n8n-puppeteer&referralCode=Railway)
-
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template?template=https://github.com/statin26/n8n-puppeteer&referralCode=Railway)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/zQ92EH?referralCode=Railway&utm_medium=integration&utm_source=template&utm_campaign=generic)
 > 🎁 **Bonus:** Using the deployment button above applies our community referral code. If you are new to Railway, you will instantly receive **$20 in free hosting credits** (equivalent to a full free month of Railway Pro) to kickstart your automation!
 
 ---
