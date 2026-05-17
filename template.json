@@ -1,11 +1,12 @@
 {
   "$schema": "https://railway.com/template.schema.json",
   "name": "N8N-PUPPETEER",
-  "description": "Production-ready n8n workflow automation engine built with Puppeteer for web scraping and a dedicated Postgres database instance.",
+  "description": "n8n workflow automation with Puppeteer scraping and a Postgres DB.",
   "icon": "https://user-images.githubusercontent.com/10379601/29446482-04f7036a-841f-11e7-9872-91d1fc2ea683.png",
   "services": [
     {
-      "name": "N8N-PUPPETEER/n8n-puppeteer",
+      "id": "n8n-puppeteer",
+      "name": "n8n-puppeteer",
       "icon": "https://avatars.githubusercontent.com/u/45487711?s=200&v=4",
       "variables": {
         "PORT": { "description": "The network port on which the n8n web server listens for incoming HTTP requests." },
@@ -26,7 +27,8 @@
       }
     },
     {
-      "name": "N8N-PUPPETEER/Postgres",
+      "id": "Postgres",
+      "name": "Postgres",
       "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
       "variables": {
         "PGDATA": { "description": "The absolute folder location where cluster storage files are saved." },
