@@ -9,5 +9,52 @@
     "healthcheckTimeout": 300,
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 5
+  },
+  "variables": {
+    "PORT": {
+      "description": "The port on which the n8n web server listens."
+    },
+    "DB_TYPE": {
+      "description": "The type of database engine used by n8n."
+    },
+    "NODES_EXCLUDE": {
+      "description": "Array of default n8n nodes to exclude from loading."
+    },
+    "DB_POSTGRESDB_HOST": {
+      "description": "The private network hostname of the connected Postgres database."
+    },
+    "DB_POSTGRESDB_PORT": {
+      "description": "The network port used to communicate with the Postgres database."
+    },
+    "DB_POSTGRESDB_USER": {
+      "description": "The database user credential for Postgres authentication."
+    },
+    "DB_POSTGRESDB_DATABASE": {
+      "description": "The name of the database created inside Postgres for n8n."
+    },
+    "DB_POSTGRESDB_PASSWORD": {
+      "description": "The database password credential for Postgres authentication."
+    },
+    "N8N_RUNNERS_ENABLED": {
+      "description": "Enables task runners for offloading heavy workflow executions."
+    },
+    "N8N_DIAGNOSTICS_ENABLED": {
+      "description": "Toggles anonymous diagnostic data reporting to n8n."
+    },
+    "PUPPETEER_EXECUTABLE_PATH": {
+      "description": "The explicit absolute path to the system Chromium binary inside the container."
+    },
+    "N8N_COMMUNITY_PACKAGES_ENABLED": {
+      "description": "Controls whether community-contributed nodes can be installed."
+    },
+    "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD": {
+      "description": "Prevents local Node installations from downloading a redundant browser build."
+    },
+    "N8N_VERSION_NOTIFICATIONS_ENABLED": {
+      "description": "Toggles UI notifications regarding new n8n version releases."
+    },
+    "N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS": {
+      "description": "Bypasses strict file system ownership checks inside Alpine Linux."
+    }
   }
 }
