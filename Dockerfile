@@ -14,7 +14,7 @@ RUN apk add --no-cache \
     npm \
     git
 
-# Global environment variables for Puppeteer
+# Global environment variables for Puppeteer and n8n behavior
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 ENV N8N_COMMUNITY_PACKAGES_ENABLED=true
@@ -32,11 +32,18 @@ RUN addgroup -g 1000 node && \
 # Set up the data directories with the correct permissions
 RUN mkdir -p /home/node/.n8n && chown -R node:node /home/node
 
-USER node
-WORKDIR /home/node
+# --- NETWORKING & RAILWAY BINDING FIXES ---
+# Force n8n to listen on all interfaces so Railway's healthcheck proxy can see it
+ENV N8N_PORT=5678
+ENV N8N_LISTEN_ADDRESS=0.0.0.0
 
 # Expose n8n's standard runtime port
 EXPOSE 5678
+# ------------------------------------------
+
+# Switch to the secure non-root user
+USER node
+WORKDIR /home/node
 
 # Start n8n directly
 CMD ["n8n", "start"]
