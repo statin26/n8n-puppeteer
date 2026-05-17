@@ -26,8 +26,9 @@ FROM n8nio/n8n:latest
 
 USER root
 
-# Copy over the true Chromium binaries and system core architectures
+# Copy Chromium wrapper, configuration folder, binaries, and system architectures
 COPY --from=debian-builder /usr/bin/chromium /usr/bin/chromium
+COPY --from=debian-builder /etc/chromium.d/ /etc/chromium.d/
 COPY --from=debian-builder /usr/lib/chromium/ /usr/lib/chromium/
 COPY --from=debian-builder /usr/lib/x86_64-linux-gnu/ /usr/lib/x86_64-linux-gnu/
 COPY --from=debian-builder /lib/x86_64-linux-gnu/ /lib/x86_64-linux-gnu/
