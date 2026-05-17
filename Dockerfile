@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libxcomposite1 \
     libxdamage1 \
     libxext6 \
-    libxfixees3 \
+    libxfixes3 \
     librandr2 \
     libgbm1 \
     libasound2 \
