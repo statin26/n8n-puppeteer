@@ -1,25 +1,39 @@
-# Step 1: Use a standard Alpine image to safely grab apk and download Chromium
-FROM alpine:3.20 AS alpine-builder
-RUN apk add --no-cache \
-    chromium \
-    nss \
-    freetype \
-    harfbuzz \
-    ttf-freefont \
-    ghostscript
+# Step 1: Use a Debian image to safely download the Linux-compatible Chromium binaries
+FROM debian:bookworm-slim AS debian-builder
 
-# Step 2: Bring in the official secure n8n image
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    chromium \
+    libnss3 \
+    libnspr4 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libdrm2 \
+    libxkbcommon0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixees3 \
+    librandr2 \
+    libgbm1 \
+    libasound2 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Step 2: Bring in the official n8n image
 FROM n8nio/n8n:latest
 
 USER root
 
-# Copy the package binaries and system libraries safely from our builder stage
-COPY --from=alpine-builder /usr/bin/chromium-browser /usr/bin/chromium-browser
-COPY --from=alpine-builder /usr/lib/ /usr/lib/
-COPY --from=alpine-builder /lib/ /lib/
+# Copy over the true Chromium binaries and system core architectures
+COPY --from=debian-builder /usr/bin/chromium /usr/bin/chromium
+COPY --from=debian-builder /usr/lib/chromium/ /usr/lib/chromium/
+COPY --from=debian-builder /usr/lib/x86_64-linux-gnu/ /usr/lib/x86_64-linux-gnu/
+COPY --from=debian-builder /lib/x86_64-linux-gnu/ /lib/x86_64-linux-gnu/
 
-# Install the Puppeteer nodes using n8n's existing global npm path
+# Install the Puppeteer community node using n8n's embedded NPM setup
 RUN npm install -g puppeteer n8n-nodes-puppeteer --unsafe-perm=true --legacy-peer-deps
 
-# Re-secure the container back to n8n's standard non-root user
+# Restore security constraints back to n8n's node user
 USER node
