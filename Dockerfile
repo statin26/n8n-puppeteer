@@ -31,7 +31,7 @@ WORKDIR /home/node
 
 # Install n8n and puppeteer LOCALLY inside the project directory instead of globally
 # This avoids Alpine's global binary symlink path errors
-RUN npm install n8n n8n-nodes-puppeteer puppeteer --unsafe-perm=true --legacy-peer-deps
+RUN npm install n8n n8n-nodes-puppeteer puppeteer zod@3 --unsafe-perm=true --legacy-peer-deps
 
 # Force n8n to listen on all interfaces so Railway's healthcheck proxy can see it
 ENV N8N_PORT=5678
