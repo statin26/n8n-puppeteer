@@ -1,4 +1,5 @@
 # n8n with Puppeteer & Chromium on Railway
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/deploy?template=https://github.com/statin26/n8n-puppeteer)
 
 This repository contains a highly optimized, custom Docker configuration designed to run **n8n** alongside **Puppeteer** and a headless **Chromium** browser on [Railway](https://www.google.com/search?q=https://railway.app/).
 
