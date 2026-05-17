@@ -1,49 +1,47 @@
 {
   "$schema": "https://railway.com/template.schema.json",
-  "name": "n8n-puppeteer",
+  "name": "n8n-puppeteer-postgres",
+  "description": "Production-ready n8n workflow automation engine pre-configured with Puppeteer (Chromium browser) for web scraping and a dedicated Postgres database.",
+  "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/n8n/n8n-original.svg",
   "services": [
     {
-      "name": "Postgres",
+      "name": "n8n-puppeteer",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/n8n/n8n-original.svg",
       "variables": {
-        "PGDATA": {
-          "description": "The internal storage path directory for Postgres data."
-        },
-        "PGHOST": {
-          "description": "The internal private network address for database connections."
-        },
-        "PGPORT": {
-          "description": "The system network port interface for database traffic."
-        },
-        "PGUSER": {
-          "description": "The primary administrator username for database login."
-        },
-        "PGDATABASE": {
-          "description": "The default initial database name context."
-        },
-        "PGPASSWORD": {
-          "description": "The secure administrative access password."
-        },
-        "POSTGRES_DB": {
-          "description": "The initializing parameter database identity entry."
-        },
-        "DATABASE_URL": {
-          "description": "The internal absolute application connection string URI."
-        },
-        "POSTGRES_USER": {
-          "description": "The target deployment configuration setup account username."
-        },
-        "SSL_CERT_DAYS": {
-          "description": "The tracking metric span for self-signed certification."
-        },
-        "POSTGRES_PASSWORD": {
-          "description": "The fallback deployment initialization target secret password."
-        },
-        "DATABASE_PUBLIC_URL": {
-          "description": "The public external network gateway connection reference."
-        },
-        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
-          "description": "The graceful countdown buffer assigned during service container cycles."
-        }
+        "PORT": { "description": "The port on which the n8n web server listens." },
+        "DB_TYPE": { "description": "The type of database engine used by n8n." },
+        "NODES_EXCLUDE": { "description": "Array of default n8n nodes to exclude from loading." },
+        "DB_POSTGRESDB_HOST": { "description": "The private network hostname of the connected Postgres database." },
+        "DB_POSTGRESDB_PORT": { "description": "The network port used to communicate with the Postgres database." },
+        "DB_POSTGRESDB_USER": { "description": "The database user credential for Postgres authentication." },
+        "DB_POSTGRESDB_DATABASE": { "description": "The name of the database created inside Postgres for n8n." },
+        "DB_POSTGRESDB_PASSWORD": { "description": "The database password credential for Postgres authentication." },
+        "N8N_RUNNERS_ENABLED": { "description": "Enables task runners for offloading heavy workflow executions." },
+        "N8N_DIAGNOSTICS_ENABLED": { "description": "Toggles anonymous diagnostic data reporting to n8n." },
+        "PUPPETEER_EXECUTABLE_PATH": { "description": "The explicit absolute path to the system Chromium binary inside the container." },
+        "N8N_COMMUNITY_PACKAGES_ENABLED": { "description": "Controls whether community-contributed nodes can be installed." },
+        "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD": { "description": "Prevents local Node installations from downloading a redundant browser build." },
+        "N8N_VERSION_NOTIFICATIONS_ENABLED": { "description": "Toggles UI notifications regarding new n8n version releases." },
+        "N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS": { "description": "Bypasses strict file system ownership checks inside Alpine Linux." }
+      }
+    },
+    {
+      "name": "Postgres",
+      "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+      "variables": {
+        "PGDATA": { "description": "The internal storage path directory for Postgres data." },
+        "PGHOST": { "description": "The internal private network address for database connections." },
+        "PGPORT": { "description": "The system network port interface for database traffic." },
+        "PGUSER": { "description": "The primary administrator username for database login." },
+        "PGDATABASE": { "description": "The default initial database name context." },
+        "PGPASSWORD": { "description": "The secure administrative access password." },
+        "POSTGRES_DB": { "description": "The initializing parameter database identity entry." },
+        "DATABASE_URL": { "description": "The internal absolute application connection string URI." },
+        "POSTGRES_USER": { "description": "The target deployment configuration setup account username." },
+        "SSL_CERT_DAYS": { "description": "The tracking metric span for self-signed certification." },
+        "POSTGRES_PASSWORD": { "description": "The fallback deployment initialization target secret password." },
+        "DATABASE_PUBLIC_URL": { "description": "The public external network gateway connection reference." },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": { "description": "The graceful countdown buffer assigned during service container cycles." }
       }
     }
   ]
