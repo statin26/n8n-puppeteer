@@ -1,0 +1,50 @@
+{
+  "$schema": "https://railway.com/template.schema.json",
+  "name": "n8n-puppeteer",
+  "services": [
+    {
+      "name": "Postgres",
+      "variables": {
+        "PGDATA": {
+          "description": "The internal storage path directory for Postgres data."
+        },
+        "PGHOST": {
+          "description": "The internal private network address for database connections."
+        },
+        "PGPORT": {
+          "description": "The system network port interface for database traffic."
+        },
+        "PGUSER": {
+          "description": "The primary administrator username for database login."
+        },
+        "PGDATABASE": {
+          "description": "The default initial database name context."
+        },
+        "PGPASSWORD": {
+          "description": "The secure administrative access password."
+        },
+        "POSTGRES_DB": {
+          "description": "The initializing parameter database identity entry."
+        },
+        "DATABASE_URL": {
+          "description": "The internal absolute application connection string URI."
+        },
+        "POSTGRES_USER": {
+          "description": "The target deployment configuration setup account username."
+        },
+        "SSL_CERT_DAYS": {
+          "description": "The tracking metric span for self-signed certification."
+        },
+        "POSTGRES_PASSWORD": {
+          "description": "The fallback deployment initialization target secret password."
+        },
+        "DATABASE_PUBLIC_URL": {
+          "description": "The public external network gateway connection reference."
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "description": "The graceful countdown buffer assigned during service container cycles."
+        }
+      }
+    }
+  ]
+}
