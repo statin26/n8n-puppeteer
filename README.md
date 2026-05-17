@@ -1,4 +1,8 @@
 # n8n with Puppeteer & Chromium on Railway
+
+![n8n](https://img.shields.io/badge/n8n-FF6D5A?style=for-the-badge&logo=n8n&logoColor=white)
+![Puppeteer](https://img.shields.io/badge/Puppeteer-00D8A2?style=for-the-badge&logo=puppeteer&logoColor=white)
+
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template?template=https://github.com/statin26/n8n-puppeteer&referralCode=Railway)
 
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template?template=https://github.com/statin26/n8n-puppeteer&referralCode=Railway)
