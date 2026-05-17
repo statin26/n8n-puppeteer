@@ -1,16 +1,29 @@
-FROM ghcr.io/puppeteer/puppeteer:latest
+FROM n8nio/n8n:latest
 
 USER root
 
-# Install n8n on top of a Chromium-ready base
-RUN npm install -g n8n --unsafe-perm=true
+# Install Chromium and required dependencies
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ttf-freefont \
+    ghostscript \
+    bash \
+    && rm -rf /var/cache/apk/*
 
-RUN npm install -g n8n-nodes-puppeteer --unsafe-perm=true --legacy-peer-deps
+# Install Puppeteer
+RUN npm install -g puppeteer --unsafe-perm=true
 
-USER pptruser
+# Install n8n Puppeteer community node
+RUN npm install -g n8n-nodes-puppeteer \
+    --unsafe-perm=true \
+    --legacy-peer-deps
 
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+# Puppeteer environment
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-EXPOSE 5678
-
-CMD ["n8n"]
+# Switch back to non-root user
+USER node
