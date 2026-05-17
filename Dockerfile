@@ -1,7 +1,7 @@
 # Use a standard, complete Alpine base image
 FROM alpine:3.20
 
-# Install Chromium, native dependencies, Node, and GIT (required for community node repo cloning)
+# Install Chromium, native dependencies, Node, and Git
 RUN apk add --no-cache \
     chromium \
     nss \
@@ -19,10 +19,14 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 ENV N8N_COMMUNITY_PACKAGES_ENABLED=true
 
-# Install n8n, puppeteer, and the community node now that git is available
+# Install n8n, puppeteer, and the community node
 RUN npm install -g n8n puppeteer n8n-nodes-puppeteer --unsafe-perm=true --legacy-peer-deps
 
-# Create standard non-root node user configuration for container security
+# Create the 'node' system group and user manually in Alpine
+RUN addgroup -g 1000 node && \
+    adduser -u 1000 -G node -s /bin/sh -D node
+
+# Set up the data directories with the correct permissions
 RUN mkdir -p /home/node/.n8n && chown -R node:node /home/node
 
 USER node
