@@ -1,5 +1,10 @@
 # n8n with Puppeteer & Chromium on Railway
 
+![Docker](https://img.shields.io/badge/docker-ready-blue)
+![PostgreSQL](https://img.shields.io/badge/postgres-16-blue)
+![n8n](https://img.shields.io/badge/n8n-automation-orange)
+![License](https://img.shields.io/github/license/statin26/n8n-postgres-universal)
+
 ![n8n](https://img.shields.io/badge/n8n-FF6D5A?style=for-the-badge&logo=n8n&logoColor=white)
 ![Puppeteer](https://img.shields.io/badge/Puppeteer-00D8A2?style=for-the-badge&logo=puppeteer&logoColor=white)
 
